@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Enterprise Project Agent Architecture",
+    "output": "enterprise-project-agent.architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "project-agent-creation",
+        "label": "Create the project agent",
+        "focus": ["employees", "agent_factory", "copilot_studio", "knowledge"],
+        "note": "A project manager configures the project, knowledge sources, team, permissions, and capabilities without designing the agent runtime."
+      },
+      {
+        "id": "office-file-edit",
+        "label": "Edit an existing Microsoft file",
+        "focus": ["employees", "m365_copilot", "copilot_studio", "power_automate", "document_agent", "officecli", "sharepoint_file"],
+        "note": "Copilot Studio resolves what must change; the MCP specialist service performs and validates the Office-file edit."
+      },
+      {
+        "id": "knowledge-trust-loop",
+        "label": "Keep project knowledge trustworthy",
+        "focus": ["sharepoint_file", "maintenance", "knowledge", "copilot_studio", "governance"],
+        "note": "Changes are detected, proposed as structured updates, validated by people, and returned to the authoritative knowledge layer."
+      }
+    ]
+  },
+  "components": [
+    {"id":"employees","type":"external","label":"Employees & PMs","sublabel":"ask · review · approve","pos":[30,290],"size":[140,72]},
+    {"id":"m365_copilot","type":"frontend","label":"Microsoft 365 Copilot","sublabel":"employee interface","pos":[220,290],"size":[160,72]},
+    {"id":"copilot_studio","type":"backend","label":"Copilot Studio Agent","sublabel":"project-specific reasoning","pos":[440,290],"size":[180,72],"tag":"OWNS WHAT"},
+    {"id":"power_automate","type":"cloud","label":"Power Automate","sublabel":"retrieve + replace file","pos":[700,290],"size":[160,72],"tag":"FILE FLOW"},
+    {"id":"document_agent","type":"backend","label":"Document Agent","sublabel":"specialist file editing","pos":[960,290],"size":[170,72],"tag":"OWNS HOW"},
+    {"id":"officecli","type":"backend","label":"OfficeCLI + Skills","sublabel":"Word · Excel · PowerPoint","pos":[1200,290],"size":[180,72],"tag":"VALIDATE"},
+    {"id":"sharepoint_file","type":"database","label":"SharePoint File","sublabel":"same file · same location","pos":[1440,290],"size":[150,72],"tag":"VERSIONED"},
+    {"id":"agent_factory","type":"frontend","label":"Agent Factory UI","sublabel":"configure project agent","pos":[430,70],"size":[190,72]},
+    {"id":"native_actions","type":"cloud","label":"Native Enterprise Actions","sublabel":"Outlook · Teams · Jira","pos":[700,70],"size":[210,72]},
+    {"id":"knowledge","type":"database","label":"Authoritative Knowledge","sublabel":"project + role + domain","pos":[420,500],"size":[210,72],"tag":"SHAREPOINT"},
+    {"id":"governance","type":"security","label":"Governance & Evaluation","sublabel":"permissions · guardrails · metrics","pos":[780,500],"size":[220,72],"tag":"CROSS-CUTTING"},
+    {"id":"maintenance","type":"backend","label":"Knowledge Maintenance","sublabel":"detect · propose · validate","pos":[1160,500],"size":[220,72],"tag":"HUMAN IN LOOP"}
+  ],
+  "boundaries": [
+    {"kind":"region","label":"Microsoft 365 Agent Layer","wraps":["m365_copilot","copilot_studio","power_automate","agent_factory","native_actions"]},
+    {"kind":"security-group","label":"Specialist MCP Runtime","wraps":["document_agent","officecli"],"pad":36}
+  ],
+  "connections": [
+    {"id":"employee-to-copilot","from":"employees","to":"m365_copilot","label":"ask / approve","variant":"emphasis"},
+    {"id":"copilot-to-agent","from":"m365_copilot","to":"copilot_studio","label":"invoke project agent","variant":"emphasis"},
+    {"id":"agent-to-flow","from":"copilot_studio","to":"power_automate","label":"document task","variant":"emphasis"},
+    {"id":"flow-to-document-agent","from":"power_automate","to":"document_agent","label":"MCP request + file","variant":"security"},
+    {"id":"document-agent-to-officecli","from":"document_agent","to":"officecli","label":"specialist skills","variant":"emphasis"},
+    {"id":"officecli-to-sharepoint","from":"officecli","to":"sharepoint_file","label":"validated file","variant":"emphasis"},
+    {"id":"employee-to-factory","from":"employees","to":"agent_factory","label":"set up project","variant":"dashed","fromSide":"top","toSide":"left","via":[[100,190],[400,190],[400,106]]},
+    {"id":"factory-to-agent","from":"agent_factory","to":"copilot_studio","label":"configure","variant":"dashed","fromSide":"bottom","toSide":"top"},
+    {"id":"knowledge-to-agent","from":"knowledge","to":"copilot_studio","label":"ground with context","variant":"dashed","fromSide":"top","toSide":"bottom"},
+    {"id":"agent-to-native-actions","from":"copilot_studio","to":"native_actions","label":"native actions","variant":"dashed","fromSide":"right","toSide":"bottom","via":[[660,326],[660,190],[805,190]]},
+    {"id":"agent-to-governance","from":"copilot_studio","to":"governance","label":"policy checks","variant":"security","fromSide":"bottom","toSide":"top","via":[[530,420],[830,420]]},
+    {"id":"document-to-governance","from":"document_agent","to":"governance","label":"trace + evaluate","variant":"dashed","fromSide":"bottom","toSide":"top","via":[[1045,445],[950,445]]},
+    {"id":"sharepoint-to-maintenance","from":"sharepoint_file","to":"maintenance","label":"change events","variant":"dashed","fromSide":"bottom","toSide":"top","via":[[1515,440],[1270,440]]},
+    {"id":"maintenance-to-knowledge","from":"maintenance","to":"knowledge","label":"human-validated updates","variant":"dashed","fromSide":"bottom","toSide":"bottom","via":[[1270,620],[525,620]]}
+  ],
+  "cards": [
+    {"dot":"cyan","title":"Pillar 1 — Knowledge Gathering","items":["SharePoint holds project, role, and domain knowledge","The requesting user's permissions constrain retrieval","The agent is grounded before it reasons or acts"]},
+    {"dot":"emerald","title":"Pillar 2 — Agent System & Creation","items":["The frontend configures one project agent per project","Copilot Studio owns intent, context, and native actions","The MCP specialist service owns deep Office-file editing"]},
+    {"dot":"rose","title":"Pillar 3 — Knowledge Maintenance","items":["Changes are detected across files, meetings, and systems","Agents propose updates and people validate them","Metrics track quality, latency, cost, and acceptance"]}
+  ]
+}

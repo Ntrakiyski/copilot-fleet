@@ -1,0 +1,120 @@
+name: Build architecture artifacts
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'agent/**'
+    paths:
+      - 'artifacts/archify/enterprise-project-agent.architecture.json'
+      - 'docs/architecture/*.md'
+      - 'docs/poc/*.md'
+      - 'scripts/export-archify.mjs'
+      - 'scripts/write-artifact-receipt.mjs'
+      - '.github/workflows/build-architecture.yml'
+      - 'package.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: architecture-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install document and browser tooling
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc zip
+          npm install --no-save --package-lock=false playwright-core@1.55.0
+          CHROME_PATH="$(command -v google-chrome-stable || command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME_PATH" ]; then
+            sudo apt-get install -y chromium
+            CHROME_PATH="$(command -v chromium)"
+          fi
+          echo "CHROME_PATH=$CHROME_PATH" >> "$GITHUB_ENV"
+
+      - name: Fetch Archify
+        shell: bash
+        run: git clone --depth 1 https://github.com/tt-a1i/archify.git "$RUNNER_TEMP/archify"
+
+      - name: Validate and deliver interactive Archify artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          CLI="$RUNNER_TEMP/archify/archify/bin/archify.mjs"
+          SOURCE="artifacts/archify/enterprise-project-agent.architecture.json"
+          HTML="artifacts/archify/enterprise-project-agent.architecture.html"
+          node "$CLI" doctor
+          node "$CLI" validate architecture "$SOURCE" --quality showcase --json | tee artifacts/archify/validation-receipt.json
+          node "$CLI" deliver architecture "$SOURCE" "$HTML" --quality showcase --json | tee artifacts/archify/delivery-receipt.json
+
+      - name: Export and verify diagram resources
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE="artifacts/archify/enterprise-project-agent.architecture.json"
+          HTML="artifacts/archify/enterprise-project-agent.architecture.html"
+          node scripts/export-archify.mjs "$HTML" "$SOURCE" artifacts/archify
+          CLI="$RUNNER_TEMP/archify/archify/bin/archify.mjs"
+          set +e
+          node "$CLI" visual-check "$HTML" --json > artifacts/archify/archify-visual-check.json
+          STATUS=$?
+          set -e
+          if [ "$STATUS" -eq 1 ]; then
+            cat artifacts/archify/archify-visual-check.json
+            exit 1
+          fi
+          if [ "$STATUS" -eq 2 ]; then
+            echo 'Archify visual-check was skipped because its browser was unavailable; Playwright checks passed.'
+          fi
+
+      - name: Generate shareable Word document
+        shell: bash
+        run: |
+          pandoc docs/architecture/enterprise-agent-architecture.md \
+            --from=gfm \
+            --to=docx \
+            --output=docs/architecture/Enterprise_Agent_Architecture.docx
+
+      - name: Build receipts and portable package
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/write-artifact-receipt.mjs \
+            artifacts/archify \
+            artifacts/archify/enterprise-project-agent.architecture.json \
+            docs/architecture/Enterprise_Agent_Architecture.docx
+          PACKAGE="artifacts/archify/enterprise-project-agent-archify-package.zip"
+          rm -f "$PACKAGE"
+          mapfile -d '' FILES < <(find artifacts/archify -maxdepth 1 -type f ! -name '*-package.zip' -print0 | sort -z)
+          zip -q -j "$PACKAGE" "${FILES[@]}" docs/architecture/Enterprise_Agent_Architecture.docx
+
+      - name: Commit generated artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'copilot-fleet-architecture-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add artifacts/archify docs/architecture/Enterprise_Agent_Architecture.docx
+          if git diff --cached --quiet; then
+            echo 'Generated artifacts are already current.'
+            exit 0
+          fi
+          git commit -m 'Build Archify architecture artifacts [skip architecture]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
