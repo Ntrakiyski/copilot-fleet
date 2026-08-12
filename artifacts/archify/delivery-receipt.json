@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/home/runner/work/copilot-fleet/copilot-fleet/artifacts/archify/enterprise-project-agent.architecture.json",
+  "output": "/home/runner/work/copilot-fleet/copilot-fleet/artifacts/archify/enterprise-project-agent.architecture.html",
+  "specification": {
+    "sha256": "c57cdb9b81953b65b098a84a0062b54c5d0f26db6f4af9d93a7442dd240f75e4",
+    "bytes": 6535
+  },
+  "artifact": {
+    "sha256": "81bc4a53f87137d7a47da634b2b7b6aa9dadee487f112494e5784d2d5ba0d5ec",
+    "bytes": 646821
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

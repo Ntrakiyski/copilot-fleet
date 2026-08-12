@@ -1,0 +1,128 @@
+{
+  "artifact": "Enterprise Project Agent Architecture",
+  "generated_at": "2026-08-12T06:10:08.791Z",
+  "runtime": "Archify fetched from tt-a1i/archify during GitHub Actions",
+  "diagram_type": "architecture",
+  "source": {
+    "components": 12,
+    "connections": 14,
+    "boundaries": 2,
+    "cards": 3,
+    "guided_views": 3
+  },
+  "checks": {
+    "viewport_containment": "passed",
+    "viewports_checked": [
+      "1440x900",
+      "1600x1000",
+      "1920x1080",
+      "2048x1320"
+    ],
+    "console_errors": 0,
+    "theme_toggle": true,
+    "presentation_mode": true,
+    "guided_views": 3
+  },
+  "files": [
+    {
+      "name": "artifacts/archify/README.md",
+      "bytes": 2947,
+      "sha256": "263dd0d4c31c8ed4dcbbc005e970ce7097b34d398413190f4fac40d16375115f"
+    },
+    {
+      "name": "artifacts/archify/THIRD_PARTY_NOTICE.md",
+      "bytes": 428,
+      "sha256": "dc088eecd75b01d215857db1da612c15eee472ec4beed41028141e8c59d37dd5"
+    },
+    {
+      "name": "artifacts/archify/archify-visual-check.json",
+      "bytes": 3767,
+      "sha256": "9be71063e63945e5d0d33ab089d93d978424d00053a309a89a6d29bb43081995"
+    },
+    {
+      "name": "artifacts/archify/delivery-receipt.json",
+      "bytes": 754,
+      "sha256": "2bafaba403c8e2b344117a86674c18403fcf4c92feef1146dd9b2018fad26e61"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.architecture.html",
+      "bytes": 646821,
+      "sha256": "81bc4a53f87137d7a47da634b2b7b6aa9dadee487f112494e5784d2d5ba0d5ec"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.architecture.json",
+      "bytes": 6535,
+      "sha256": "c57cdb9b81953b65b098a84a0062b54c5d0f26db6f4af9d93a7442dd240f75e4"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.architecture.visual-check.1440x900.dark.png",
+      "bytes": 157139,
+      "sha256": "88990c650ea0d5591b4c2e0530f167cf2e359ee7eb8993ae6a223f403270f964"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.architecture.visual-check.1440x900.light.png",
+      "bytes": 169749,
+      "sha256": "c0993fb35fc47b1b46c8c387952e09690a1fa9195c7d7e5a22005a63428a29cd"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.architecture.visual-check.2048x1320.dark.png",
+      "bytes": 194153,
+      "sha256": "7caffee4cb41df044b9031b8d1dd13216257c6fb454820dec9a1f895feadea22"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.architecture.visual-check.2048x1320.light.png",
+      "bytes": 212075,
+      "sha256": "5eeadfd4b16d05cb676cf5d33c907183b1d9431873d7c44728b4190e05aa8d04"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.architecture.visual-check.html",
+      "bytes": 2032,
+      "sha256": "8aba97e99e5391bc64c72b45c597bd48461e666cbbbc1eca5e39eb4b4f05ba3b"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.architecture.visual-check.json",
+      "bytes": 3767,
+      "sha256": "9be71063e63945e5d0d33ab089d93d978424d00053a309a89a6d29bb43081995"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.diagram.png",
+      "bytes": 761274,
+      "sha256": "0f46b33df5b272522d0e789f2e906243262298e4abdd030ef800e1c3a82d9f56"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.diagram.svg",
+      "bytes": 64197,
+      "sha256": "0fd641540f3f696858afa2ca4fe5b01deec497dfdaf353cbeebe6b92fffbab8c"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.executive-1920x1080.png",
+      "bytes": 165475,
+      "sha256": "47d437384850d9a6b23f791c9a20735b0955dd4dc55c8ee16bd0c6d30cd78cb5"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.interaction-check.json",
+      "bytes": 250,
+      "sha256": "5a0c5d936e863c0447640d0b75a2e4d955b5b5f26a62a94aa6b4535a66eee764"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.share-card.png",
+      "bytes": 113445,
+      "sha256": "870f056f5b8a9ee3998cfdad484452906405b41e19d038a453630e51b7d904ab"
+    },
+    {
+      "name": "artifacts/archify/enterprise-project-agent.visual-check.json",
+      "bytes": 2162,
+      "sha256": "98778d36fb485d7ae19444b619d5d575dc0f76f18f7ad3a13b26e49c1b5c816e"
+    },
+    {
+      "name": "artifacts/archify/validation-receipt.json",
+      "bytes": 1864,
+      "sha256": "f332a6238fb4418eff9e620ef6a214eaac740e355b37b2c42422bc658c5668b1"
+    },
+    {
+      "name": "docs/architecture/Enterprise_Agent_Architecture.docx",
+      "bytes": 22775,
+      "sha256": "543e779ed8c74ae40563b17cdc33b3ba21d9dfb2bed9f271eb0a7711b4676979"
+    }
+  ]
+}

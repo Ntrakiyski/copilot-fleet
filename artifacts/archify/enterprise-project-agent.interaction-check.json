@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "guided_chapters": 3,
+    "guided_label_after_click": "Create the project agent",
+    "theme_toggle": {
+      "before": "dark",
+      "after": "light",
+      "changed": true
+    },
+    "present_mode": "true"
+  },
+  "errors": []
+}

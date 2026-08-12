@@ -1,0 +1,91 @@
+{
+  "artifact": "/home/runner/work/copilot-fleet/copilot-fleet/artifacts/archify/enterprise-project-agent.architecture.html",
+  "results": [
+    {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollHeight": 900,
+      "clientHeight": 900,
+      "nodes": 12,
+      "edges": 14,
+      "cards": 3,
+      "views": 3,
+      "title": "Enterprise Project Agent Architecture Diagram",
+      "svgViewBox": "0 0 1630 640",
+      "guidedVisible": true,
+      "diagramWidth": 1294,
+      "diagramHeight": 508,
+      "viewport": [
+        1440,
+        900
+      ],
+      "overflowX": false,
+      "overflowY": false
+    },
+    {
+      "scrollWidth": 1600,
+      "clientWidth": 1600,
+      "scrollHeight": 1000,
+      "clientHeight": 1000,
+      "nodes": 12,
+      "edges": 14,
+      "cards": 3,
+      "views": 3,
+      "title": "Enterprise Project Agent Architecture Diagram",
+      "svgViewBox": "0 0 1630 640",
+      "guidedVisible": true,
+      "diagramWidth": 1506,
+      "diagramHeight": 591,
+      "viewport": [
+        1600,
+        1000
+      ],
+      "overflowX": false,
+      "overflowY": false
+    },
+    {
+      "scrollWidth": 1920,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "clientHeight": 1080,
+      "nodes": 12,
+      "edges": 14,
+      "cards": 3,
+      "views": 3,
+      "title": "Enterprise Project Agent Architecture Diagram",
+      "svgViewBox": "0 0 1630 640",
+      "guidedVisible": true,
+      "diagramWidth": 1819,
+      "diagramHeight": 714,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "overflowX": false,
+      "overflowY": false
+    },
+    {
+      "scrollWidth": 2048,
+      "clientWidth": 2048,
+      "scrollHeight": 1320,
+      "clientHeight": 1320,
+      "nodes": 12,
+      "edges": 14,
+      "cards": 3,
+      "views": 3,
+      "title": "Enterprise Project Agent Architecture Diagram",
+      "svgViewBox": "0 0 1630 640",
+      "guidedVisible": true,
+      "diagramWidth": 1870,
+      "diagramHeight": 734,
+      "viewport": [
+        2048,
+        1320
+      ],
+      "overflowX": false,
+      "overflowY": false
+    }
+  ],
+  "errors": [],
+  "visualReview": "pending-manual-inspection"
+}

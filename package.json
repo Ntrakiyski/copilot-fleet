@@ -1,0 +1,9 @@
+{
+  "name": "copilot-fleet",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "architecture:export": "node scripts/export-archify.mjs artifacts/archify/enterprise-project-agent.architecture.html artifacts/archify/enterprise-project-agent.architecture.json artifacts/archify",
+    "architecture:receipt": "node scripts/write-artifact-receipt.mjs artifacts/archify artifacts/archify/enterprise-project-agent.architecture.json docs/architecture/Enterprise_Agent_Architecture.docx"
+  }
+}
